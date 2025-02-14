@@ -1,0 +1,240 @@
+openapi: 3.0.3
+info:
+  title: Customer Service API
+  description: API para gestionar los clientes.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /customer/list:
+    get:
+      tags:
+        - customer
+      summary: Obtener lista de clientes
+      operationId: listCustomer
+      responses:
+        '200':
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+  /customer/findById/{id}:
+    get:
+      tags:
+        - customer
+      summary: Obtener cliente por id
+      operationId: findById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description:  Cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customer/created:
+    post:
+      tags:
+        - customer
+      summary: Crear un nuevo cliente
+      operationId: registerCustomer
+      requestBody:
+        description: API para crear un nuevo cliente
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRequest"
+      responses:
+        '200':
+          description: Cliente registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+  /customer/update:
+    put:
+      tags:
+        - customer
+      summary: Actualizar cliente
+      operationId: updateCustomer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Cliente actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        '404':
+          description: Cliente no encontrado
+
+  /customer/delete/{id}:
+    delete:
+      tags:
+        - customer
+      summary: Eliminar cliente por ID
+      operationId: deleteCustomer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cliente eliminado
+        '404':
+          description: Cliente no encontrado
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único del cliente
+        type:
+          type: string
+          description: Tipo cliente
+        name:
+          type: string
+          description: Nombre cliente
+        lastname:
+          type: string
+          description: Apellido cliente
+        direction:
+          type: string
+          description: Direccion cliente
+        phone:
+          type: string
+          description: Telefono cliente
+        email:
+          type: string
+          description: Correo cliente
+        dni:
+          type: string
+          description: Documento de identificacion
+        holders:
+          type: array
+          items:
+            type: object
+            description: Firmantes autorizados
+            properties:
+              name:
+                type: string
+                description: Nombre Titular
+              lastname:
+                type: string
+                description: Apellido Titular
+              phone:
+                type: string
+                description: Telefono titular
+              email:
+                type: string
+                description: Correo titular
+              dni:
+                type: string
+                description: Documento de identificacion
+        signatories:
+          type: array
+          items:
+            type: object
+            description: Firmantes autorizados
+            properties:
+              name:
+                type: string
+                description: Nombre Titular
+              lastname:
+                type: string
+                description: Apellido Titular
+              phone:
+                type: string
+                description: Telefono titular
+              email:
+                type: string
+                description: Correo titular
+              dni:
+                type: string
+                description: Documento de identificacion
+    CustomerRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Tipo Cliente
+        name:
+          type: string
+          description: Nombre cliente
+        lastname:
+          type: string
+          description: Apellido cliente
+        direction:
+          type: string
+          description: Direccion cliente
+        phone:
+          type: string
+          description: Telefono cliente
+        email:
+          type: string
+          description: Correo cliente
+        dni:
+          type: string
+          description: Documento de identificacion
+        holders:
+          type: array
+          items:
+            type: object
+            description: Firmantes autorizados
+            properties:
+              name:
+                type: string
+                description: Nombre Titular
+              lastname:
+                type: string
+                description: Apellido Titular
+              phone:
+                type: string
+                description: Telefono titular
+              email:
+                type: string
+                description: Correo titular
+              dni:
+                type: string
+                description: Documento de identificacion
+        signatories:
+          type: array
+          items:
+            type: object
+            description: Firmantes autorizados
+            properties:
+              name:
+                type: string
+                description: Nombre Titular
+              lastname:
+                type: string
+                description: Apellido Titular
+              phone:
+                type: string
+                description: Telefono titular
+              email:
+                type: string
+                description: Correo titular
+              dni:
+                type: string
+                description: Documento de identificacion

@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: Credit Service API
+  description: API para gestionar creditos bancarios de los cliente.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /credit/list:
+    get:
+      tags:
+        - credit
+      summary: Obtener lista de creditos
+      operationId: listCredit
+      responses:
+        '200':
+          description: Lista de creditos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Credit'
+
+  /credit/{id}:
+    get:
+      tags:
+        - credit
+      summary: Obtener credito por id
+      operationId: creditById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credito por id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credit'
+
+  /credit/findByCustomerId/{id}:
+    get:
+      tags:
+        - credit
+      summary: Obtener credito por id customer
+      operationId: creditByCustomerId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credito por id customer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Credit'
+
+  /credit/created:
+    post:
+      tags:
+        - credit
+      summary: Crear un nuevo credito
+      operationId: registerCredit
+      requestBody:
+        description: API para crear un nuevo credito
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreditRequest"
+      responses:
+        '200':
+          description: Credito creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credit"
+  /credit/update:
+    put:
+      tags:
+        - credit
+      summary: Actualizar credito
+      operationId: updateCredit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credit'
+      responses:
+        '200':
+          description: Credito actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credit"
+        '404':
+          description: Credito no existe
+
+  /credit/delete/{id}:
+    delete:
+      tags:
+        - credit
+      summary: Eliminar credito por ID
+      operationId: deleteCredit
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Credito eliminado
+        '404':
+          description: Credito no encontrado
+
+components:
+  schemas:
+    Credit:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único de credito
+        customerId:
+          type: string
+          description: ID único del cliente
+        typeCredit:
+          type: string
+          enum: [personal, empresarial]
+          description: Tipo de credito
+        amount:
+          type: number
+          description: Monto de credito
+        approvalDate:
+          type: string
+          format: date-time
+          description: Fecha de aprobacion
+        interest:
+          type: number
+          description: Intereses
+        quota:
+          type: integer
+          description:  Numero de cuotas
+        state:
+          type: string
+          enum: [activo, cancelado]
+          description: Tipo de credito
+    CreditRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: ID único del cliente
+        typeCredit:
+          type: string
+          enum: [personal, empresarial]
+          description: Tipo de credito
+        amount:
+          type: number
+          description: Monto de credito
+        approvalDate:
+          type: string
+          format: date-time
+          description: Fecha de aprobacion
+        interest:
+          type: number
+          description: Intereses
+        quota:
+          type: integer
+          description:  Numero de cuotas
+        state:
+          type: string
+          enum: [activo, cancelado]
+          description: Tipo de credito

@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: Account Service API
+  description: API para gestionar las cuentas bancarias.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /account/list:
+    get:
+      tags:
+        - account
+      summary: Obtener lista de cuentas bancarias
+      operationId: listAccount
+      responses:
+        '200':
+          description: Lista de cuentas bancarias
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+
+  /account/{id}:
+    get:
+      tags:
+        - account
+      summary: Obtener cuenta bancaria por id
+      operationId: accountById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cuenta bancaria por id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+  /account/findByHolder/{id}:
+    get:
+      tags:
+        - account
+      summary: Obtener cuentas bancaria por cliente
+      operationId: accountByHolderId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cuenta bancaria por id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+
+  /account/created:
+    post:
+      tags:
+        - account
+      summary: Crear una nueva cuenta bancaria
+      operationId: registerAccount
+      requestBody:
+        description: API para crear una cuenta
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountRequest"
+      responses:
+        '200':
+          description: Cuenta registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+  /account/update:
+    put:
+      tags:
+        - account
+      summary: Actualizar cuenta
+      operationId: updateAccount
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Account'
+      responses:
+        '200':
+          description: Cuenta actualizada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Account"
+        '404':
+          description: Cuenta no encontrada
+
+  /account/delete/{id}:
+    delete:
+      tags:
+        - account
+      summary: Eliminar cuenta por ID
+      operationId: deleteAccount
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cuenta eliminada
+        '404':
+          description: Cuenta no encontrada
+
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador de cuenta
+        holder:
+          type: string
+          description: Titular de la cuenta
+        typeAccount:
+          type: string
+          enum: [AHORRO, CORRIENTE, PLAZO_FIJO]
+          description: Tipo de cuentas
+        balance:
+          type: number
+          description: Saldo de la cuenta
+        opening date:
+          type: string
+          format: date-time
+          description: Fecha de apertura de la cuenta
+        closing date:
+          type: string
+          format: date-time
+          description: Fecha de cierre de la cuenta
+        maintenanceCommission:
+          type: number
+          description: Comision por mantenimiento
+        limitMovement:
+          type: integer
+          description: Limite de movimientos
+    AccountRequest:
+      type: object
+      properties:
+        holder:
+          type: string
+          description: Titular de la cuenta
+        typeAccount:
+          type: string
+          enum: [ahorro, corriente, plazo_fijo]
+          description: Tipo de cuentas
+        balance:
+          type: number
+          description: Saldo de la cuenta
+        opening date:
+          type: string
+          format: date-time
+          description: Fecha de apertura de la cuenta
+        closing date:
+          type: string
+          format: date-time
+          description: Fecha de cierre de la cuenta
+        maintenanceCommission:
+          type: number
+          description: Comision por mantenimiento
+        limitMovement:
+          type: integer
+          description: Limite de movimientos

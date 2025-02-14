@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Payment Service API
+  description: API para gestionar los pagos de creditos.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /payment/list:
+    get:
+      tags:
+        - payment
+      summary: Obtener lista de pagos
+      operationId: listPayment
+      responses:
+        '200':
+          description: Lista de pagos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+  /payment/findByProduct/{idProduct}:
+    get:
+      tags:
+        - payment
+      summary: Obtener lista de pagos por producto
+      operationId: findByProductId
+      parameters:
+        - name: idProduct
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de pagos por producto
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+  /payment/created:
+    post:
+      tags:
+        - payment
+      summary: Crear un nuevo pago
+      operationId: registerPayment
+      requestBody:
+        description: API para registrar pagos
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PaymentRequest"
+      responses:
+        '200':
+          description: Pago registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Payment"
+  /payment/update:
+    put:
+      tags:
+        - payment
+      summary: Actualizar pago
+      operationId: updatePayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          description: Pago actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Payment"
+        '404':
+          description: Pago no encontrado
+
+  /payment/delete/{id}:
+    delete:
+      tags:
+        - payment
+      summary: Eliminar pago por ID
+      operationId: deletePayment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Pago eliminado
+        '404':
+          description: Pago no encontrado
+
+components:
+  schemas:
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único del pago
+        idProduct:
+          type: string
+          description: ID del producto bancario
+        date:
+          type: string
+          format: date-time
+          description: Fecha del movimiento
+        amount:
+          type: number
+          description: Monto
+    PaymentRequest:
+      type: object
+      properties:
+        idProduct:
+          type: string
+          description: ID del producto bancario
+        date:
+          type: string
+          format: date-time
+          description: Fecha del movimiento
+        amount:
+          type: number
+          description: Monto

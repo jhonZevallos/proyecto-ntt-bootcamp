@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: Movement Service API
+  description: API para gestionar los movimientos de productos bancarios.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /movement/list:
+    get:
+      tags:
+        - movement
+      summary: Obtener lista de movimientos
+      operationId: listMovement
+      responses:
+        '200':
+          description: Lista de movimientos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movement'
+  /movement/findByProduct/{idProduct}:
+    get:
+      tags:
+        - movement
+      summary: Obtener lista de movimientos por producto
+      operationId: findByProductId
+      parameters:
+        - name: idProduct
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de movimientos por producto
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movement'
+  /movement/created:
+    post:
+      tags:
+        - movement
+      summary: Crear un nuevo movimiento
+      operationId: registerMovement
+      requestBody:
+        description: API para registrar movimientos
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MovementRequest"
+      responses:
+        '200':
+          description: Movimiento registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movement"
+  /movement/update:
+    put:
+      tags:
+        - movement
+      summary: Actualizar movimientos
+      operationId: updateMovement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movement'
+      responses:
+        '200':
+          description: Movimiento actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Movement"
+        '404':
+          description: Movimiento no encontrado
+
+  /movement/delete/{id}:
+    delete:
+      tags:
+        - movement
+      summary: Eliminar movimiento por ID
+      operationId: deleteMovement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Movimiento eliminado
+        '404':
+          description: Movimiento no encontrado
+
+components:
+  schemas:
+    Movement:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único del movimiento
+        idProduct:
+          type: string
+          description: ID del producto bancario
+        date:
+          type: string
+          format: date-time
+          description: Fecha del movimiento
+        type:
+          type: string
+          enum: [deposito, retiro]
+          description: Tipo de movimiento
+        amount:
+          type: number
+          description: Monto
+    MovementRequest:
+      type: object
+      properties:
+        idProduct:
+          type: string
+          description: ID del producto bancario
+        date:
+          type: string
+          format: date-time
+          description: Fecha del movimiento
+        type:
+          type: string
+          enum: [deposito, retiro]
+          description: Tipo de movimiento
+        amount:
+          type: number
+          description: Monto

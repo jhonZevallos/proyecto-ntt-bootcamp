@@ -1,0 +1,176 @@
+openapi: 3.0.3
+info:
+  title: CreditCard Service API
+  description: API para gestionar las tarjetas de credito.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /creditcard/list:
+    get:
+      tags:
+        - creditcard
+      summary: Obtener lista de tarjetas de credito
+      operationId: listCreditCard
+      responses:
+        '200':
+          description: Lista de tarjetas de credito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCard'
+  /creditcard/{id}:
+    get:
+      tags:
+        - creditcard
+      summary: Obtener tarjeta de credito por id
+      operationId: creditCardById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tsrjeta de Credito por id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCard'
+
+  /creditcard/findByCustomerId/{id}:
+    get:
+      tags:
+        - creditcard
+      summary: Obtener tarjeta de credito por id customer
+      operationId: creditCardByCustomerId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarjeta de Credito por id customer
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCard'
+  /creditcard/created:
+    post:
+      tags:
+        - creditcard
+      summary: Crear una nueva tarjeta de credito
+      operationId: registerCreditCard
+      requestBody:
+        description: API para crear un nuevo credito
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreditCardRequest"
+      responses:
+        '200':
+          description: Tarjeta de credito creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditCard"
+  /creditcard/update:
+    put:
+      tags:
+        - creditcard
+      summary: Actualizar tarjeta de credito
+      operationId: updateCreditCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditCard'
+      responses:
+        '200':
+          description: Tarjeta de Credito actualizada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditCard"
+        '404':
+          description: Credito no existe
+
+  /creditcard/delete/{id}:
+    delete:
+      tags:
+        - creditcard
+      summary: Eliminar tarjeta credito por ID
+      operationId: deleteCreditCard
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tarjeta de Credito eliminado
+        '404':
+          description: Tarjeta de Credito no encontrado
+
+components:
+  schemas:
+    CreditCard:
+      type: object
+      properties:
+        id:
+          type: string
+          description: ID único de credito
+        customerId:
+          type: string
+          description: ID único del cliente
+        typeCredit:
+          type: string
+          enum: [personal, empresarial]
+          description: Tipo de credito
+        cardNumber:
+          type: string
+          description: Numero de tarjeta
+        expirationDate:
+          type: string
+          format: date
+          description: Fecha de expiracion
+        creditLimit:
+          type: number
+          description: Limite de credito
+        currentBalance:
+          type: number
+          description:  Saldo actual
+    CreditCardRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+          description: ID único del cliente
+        typeCredit:
+          type: string
+          enum: [personal, empresarial]
+          description: Tipo de credito
+        cardNumber:
+          type: string
+          description: Numero de tarjeta
+        expirationDate:
+          type: string
+          format: date
+          description: Fecha de expiracion
+        creditLimit:
+          type: number
+          description: Limite de credito
+        currentBalance:
+          type: number
+          description:  Saldo actual

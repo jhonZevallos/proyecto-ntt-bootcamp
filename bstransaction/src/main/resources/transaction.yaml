@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: Transaction Service API
+  description: API para gestionar las transacciones del cliente.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+paths:
+  /transaction/listProduct/{idClient}:
+    get:
+      tags:
+        - transaction
+      summary: Obtener lista de productos por cliente
+      operationId: listProduct
+      parameters:
+        - name: idClient
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de productos por cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /transaction/createdAccount:
+    post:
+      tags:
+        - transaction
+      summary: Crear una nueva cuenta bancaria
+      operationId: registerAccount
+      requestBody:
+        description: API para crear una cuenta
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountClientRequest"
+      responses:
+        '200':
+          description: Cuenta registrado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountResponse"
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Tipo de cliente
+        name:
+          type: string
+          description: Nombre cliente
+        account:
+          type: array
+          items:
+            type: object
+            description: Cuentas bancaria del cliente
+            properties:
+              id:
+                type: string
+                description: ID unico de cuenta
+              type:
+                type: string
+                description: Tipo de cuenta
+              balance:
+                type: number
+                description: Saldo disponible
+        credit:
+          type: array
+          items:
+            type: object
+            description: Creditos del cliente
+            properties:
+              id:
+                type: string
+                description: ID unico de credito
+              type:
+                type: string
+                description: Tipo de cuenta
+              amount:
+                type: number
+                description: Saldo disponible
+        creditcard:
+          type: array
+          items:
+            type: object
+            description: Tarjetas de Credito del cliente
+            properties:
+              id:
+                type: string
+                description: ID unico de tarjeta credito
+              cardnumber:
+                type: string
+                description: Tipo de cuenta
+              balance:
+                type: number
+                description: Saldo disponible
+    AccountResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador de cuenta
+        holder:
+          type: string
+          description: Titular de la cuenta
+        typeAccount:
+          type: string
+          enum: [AHORRO, CORRIENTE, PLAZO_FIJO]
+          description: Tipo de cuentas
+        balance:
+          type: number
+          description: Saldo de la cuenta
+        opening date:
+          type: string
+          format: date-time
+          description: Fecha de apertura de la cuenta
+        closing date:
+          type: string
+          format: date-time
+          description: Fecha de cierre de la cuenta
+        maintenanceCommission:
+          type: number
+          description: Comision por mantenimiento
+        limitMovement:
+          type: integer
+          description: Limite de movimientos
+    AccountClientRequest:
+      type: object
+      properties:
+        holder:
+          type: string
+          description: Titular de la cuenta
+        typeAccount:
+          type: string
+          enum: [ahorro, corriente, plazo_fijo]
+          description: Tipo de cuentas
+        balance:
+          type: number
+          description: Saldo de la cuenta
+        opening date:
+          type: string
+          format: date-time
+          description: Fecha de apertura de la cuenta
+        closing date:
+          type: string
+          format: date-time
+          description: Fecha de cierre de la cuenta
+        maintenanceCommission:
+          type: number
+          description: Comision por mantenimiento
+        limitMovement:
+          type: integer
+          description: Limite de movimientos
