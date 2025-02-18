@@ -16,6 +16,8 @@ public class TransactionMapper {
     public AccountRequest getAccountRequestOfAccountClientRequest(AccountClientRequest clientRequest) {
         AccountRequest server = new AccountRequest();
         server.setHolder(clientRequest.getHolder());
+        server.setAccountNumber(clientRequest.getAccountNumber());
+        server.setAccountNumberCCI(clientRequest.getAccountNumberCCI());
         server.setTypeAccount(AccountRequest.TypeAccountEnum
                 .valueOf(clientRequest.getTypeAccount().getValue().toUpperCase()));
         server.setBalance(clientRequest.getBalance());
@@ -29,6 +31,8 @@ public class TransactionMapper {
         AccountResponse client = new AccountResponse();
         client.setId(server.getId());
         client.setHolder(server.getHolder());
+        client.setAccountNumber(server.getAccountNumber());
+        client.setAccountNumberCCI(server.getAccountNumberCCI());
         client.setTypeAccount(AccountResponse.TypeAccountEnum
                 .valueOf(server.getTypeAccount().getValue()));
         client.setBalance(server.getBalance());

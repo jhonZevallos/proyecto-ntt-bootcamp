@@ -70,6 +70,12 @@ components:
               type:
                 type: string
                 description: Tipo de cuenta
+              accountNumber:
+                type: string
+                description: Numero de cuenta
+              accountNumberCCI:
+                type: string
+                description: Numero de cuenta interbancaria
               balance:
                 type: number
                 description: Saldo disponible
@@ -112,9 +118,15 @@ components:
         holder:
           type: string
           description: Titular de la cuenta
+        accountNumber:
+          type: string
+          description: Numero de cuenta
+        accountNumberCCI:
+          type: string
+          description: Numero de cuenta interbancaria
         typeAccount:
           type: string
-          enum: [AHORRO, CORRIENTE, PLAZO_FIJO]
+          enum: [ahorro, corriente, plazo_fijo]
           description: Tipo de cuentas
         balance:
           type: number
@@ -139,6 +151,12 @@ components:
         holder:
           type: string
           description: Titular de la cuenta
+        accountNumber:
+          type: string
+          description: Numero de cuenta
+        accountNumberCCI:
+          type: string
+          description: Numero de cuenta interbancaria
         typeAccount:
           type: string
           enum: [ahorro, corriente, plazo_fijo]

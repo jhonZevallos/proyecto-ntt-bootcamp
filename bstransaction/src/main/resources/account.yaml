@@ -184,7 +184,7 @@ components:
           description: Numero de cuenta interbancaria
         typeAccount:
           type: string
-          enum: [AHORRO, CORRIENTE, PLAZO_FIJO]
+          enum: [ahorro, corriente, plazo_fijo]
           description: Tipo de cuentas
         balance:
           type: number
