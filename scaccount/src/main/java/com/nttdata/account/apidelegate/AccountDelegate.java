@@ -38,6 +38,16 @@ public class AccountDelegate implements AccountApiDelegate {
     }
 
     @Override
+    public Mono<ResponseEntity<Account>> accountByAccountNumber(String accountNumber, ServerWebExchange exchange) {
+        return service.findByAccountNumber(accountNumber).map(ResponseEntity::ok);
+    }
+
+    @Override
+    public Mono<ResponseEntity<Account>> accountByAccountNumberCci(String accountNumberCci, ServerWebExchange exchange) {
+        return service.findByAccountNumberCci(accountNumberCci).map(ResponseEntity::ok);
+    }
+
+    @Override
     public Mono<ResponseEntity<Account>> accountById(String id, ServerWebExchange exchange) {
         return service.findById(id).map(ResponseEntity::ok);
     }

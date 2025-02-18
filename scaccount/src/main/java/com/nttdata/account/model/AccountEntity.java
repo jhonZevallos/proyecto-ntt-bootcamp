@@ -14,6 +14,8 @@ public class AccountEntity {
 
     @BsonId
     private String id;
+    private String numeroCuenta;
+    private String numeroCuentaCci;
     private String titularCuenta;
     private String tipo;
     private BigDecimal saldo;

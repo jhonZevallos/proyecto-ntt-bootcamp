@@ -65,6 +65,46 @@ paths:
                 items:
                   $ref: '#/components/schemas/Account'
 
+  /account/findByAccountNumber/{accountNumber}:
+    get:
+      tags:
+        - account
+      summary: Obtener cuentas bancaria por numero de cuenta
+      operationId: accountByAccountNumber
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cuenta bancaria por numero de cuenta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
+  /account/findByAccountNumberCci/{accountNumberCci}:
+    get:
+      tags:
+        - account
+      summary: Obtener cuentas bancaria por numero de cuenta Cci
+      operationId: accountByAccountNumberCci
+      parameters:
+        - name: accountNumberCci
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cuenta bancaria por numero de cuenta cci
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+
   /account/created:
     post:
       tags:
@@ -136,6 +176,12 @@ components:
         holder:
           type: string
           description: Titular de la cuenta
+        accountNumber:
+          type: string
+          description: Numero de cuenta
+        accountNumberCCI:
+          type: string
+          description: Numero de cuenta interbancaria
         typeAccount:
           type: string
           enum: [AHORRO, CORRIENTE, PLAZO_FIJO]
@@ -163,6 +209,12 @@ components:
         holder:
           type: string
           description: Titular de la cuenta
+        accountNumber:
+          type: string
+          description: Numero de cuenta
+        accountNumberCCI:
+          type: string
+          description: Numero de cuenta interbancaria
         typeAccount:
           type: string
           enum: [ahorro, corriente, plazo_fijo]

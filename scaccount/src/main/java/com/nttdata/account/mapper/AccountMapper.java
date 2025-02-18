@@ -14,6 +14,8 @@ public class AccountMapper {
     public Account getAccountOfAccountEntity(AccountEntity entity) {
         Account account = new Account();
         account.setId(entity.getId());
+        account.setAccountNumber(entity.getNumeroCuenta());
+        account.setAccountNumberCCI(entity.getNumeroCuentaCci());
         account.setHolder(entity.getTitularCuenta());
         account.setTypeAccount(Account.TypeAccountEnum.fromValue(entity.getTipo().toUpperCase()));
         account.setBalance(entity.getSaldo());
@@ -26,6 +28,8 @@ public class AccountMapper {
     public AccountEntity getAccountEntityOfAccount(Account model) {
         return AccountEntity.builder()
                 .id(model.getId())
+                .numeroCuenta(model.getAccountNumber())
+                .numeroCuentaCci(model.getAccountNumberCCI())
                 .titularCuenta(model.getHolder())
                 .tipo(model.getTypeAccount().getValue())
                 .saldo(model.getBalance())
@@ -38,6 +42,8 @@ public class AccountMapper {
 
     public AccountEntity getAccountEntityOfAccountRequest(AccountRequest request) {
         return AccountEntity.builder()
+                .numeroCuenta(request.getAccountNumber())
+                .numeroCuentaCci(request.getAccountNumberCCI())
                 .titularCuenta(request.getHolder())
                 .tipo(request.getTypeAccount().getValue())
                 .saldo(request.getBalance())

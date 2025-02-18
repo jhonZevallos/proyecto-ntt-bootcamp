@@ -111,7 +111,8 @@ components:
           description: ID único del cliente
         type:
           type: string
-          description: Tipo cliente
+          enum: [personal, personal_vip, empresarial, empresarial_pyme]
+          description: Tipo de cliente
         name:
           type: string
           description: Nombre cliente
@@ -177,7 +178,8 @@ components:
       properties:
         type:
           type: string
-          description: Tipo Cliente
+          enum: [personal, personal_vip, empresarial, empresarial_pyme]
+          description: Tipo de cliente
         name:
           type: string
           description: Nombre cliente

@@ -44,7 +44,7 @@ public class CustomerMapper {
         customer.setEmail(entity.getCorreo());
         customer.setName(entity.getNombre());
         customer.setPhone(entity.getTelefono());
-        customer.setType(entity.getTipo());
+        customer.setType(Customer.TypeEnum.fromValue(entity.getTipo()));
         customer.setLastname(entity.getApellido());
         customer.setDni(entity.getDni());
         customer.setHolders(holders);
@@ -54,7 +54,7 @@ public class CustomerMapper {
 
     public CustomerEntity getCustomerEntityOfCustomer (Customer model) {
 
-        if(model.getType().equals("empresarial")) {
+        if(model.getType().getValue().equals("empresarial")) {
 
             List<Holder> titulares = model.getHolders().stream()
                     .map(data -> Holder.builder()
@@ -86,7 +86,7 @@ public class CustomerMapper {
                     .correo(model.getEmail())
                     .telefono(model.getPhone())
                     .dni(model.getDni())
-                    .tipo(model.getType())
+                    .tipo(model.getType().getValue())
                     .fechaModificacion(LocalDateTime.now())
                     .firmantesAutorizados(firmantes)
                     .titulares(titulares)
@@ -101,14 +101,14 @@ public class CustomerMapper {
                 .correo(model.getEmail())
                 .telefono(model.getPhone())
                 .dni(model.getDni())
-                .tipo(model.getType())
+                .tipo(model.getType().getValue())
                 .fechaModificacion(LocalDateTime.now())
                 .build();
     }
 
     public CustomerEntity getCustomerEntityOfCustomerRequest (CustomerRequest request) {
 
-        if(request.getType().equals("empresarial")) {
+        if(request.getType().getValue().equals("empresarial")) {
 
             List<Holder> titulares = request.getHolders().stream()
                     .map(data -> Holder.builder()
@@ -139,7 +139,7 @@ public class CustomerMapper {
                     .correo(request.getEmail())
                     .telefono(request.getPhone())
                     .dni(request.getDni())
-                    .tipo(request.getType())
+                    .tipo(request.getType().getValue())
                     .fechaCreacion(LocalDateTime.now())
                     .firmantesAutorizados(firmantes)
                     .titulares(titulares)
@@ -153,7 +153,7 @@ public class CustomerMapper {
                 .correo(request.getEmail())
                 .telefono(request.getPhone())
                 .dni(request.getDni())
-                .tipo(request.getType())
+                .tipo(request.getType().getValue())
                 .fechaCreacion(LocalDateTime.now())
                 .build();
     }

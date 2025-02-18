@@ -32,6 +32,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Mono<Account> findByAccountNumber(String accountNumber) {
+        return repository.findByNumeroCuenta(accountNumber)
+                .map(mapper::getAccountOfAccountEntity);
+    }
+
+    @Override
+    public Mono<Account> findByAccountNumberCci(String accountNumberCci) {
+        return repository.findByNumeroCuentaCci(accountNumberCci)
+                .map(mapper::getAccountOfAccountEntity);
+    }
+
+    @Override
     public Mono<Account> findById(String id) {
         return repository.findById(id).map(mapper::getAccountOfAccountEntity);
     }
