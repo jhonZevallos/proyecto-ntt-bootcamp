@@ -71,7 +71,7 @@ public class TransactionServiceImpl implements TransactionService {
                     }).toList();
 
             Product product = new Product();
-            product.setType(customer.getType());
+            product.setType(customer.getType().getValue());
             product.setName(customer.getName());
             product.setAccount(accounts);
             product.setCredit(credits);
@@ -84,7 +84,7 @@ public class TransactionServiceImpl implements TransactionService {
     public Mono<Account> createAccount(AccountRequest request) {
         return customerAdapter.getCustomerById(request.getHolder())
                 .flatMap(customer -> {
-                    String customerType = customer.getType().toLowerCase();
+                    String customerType = customer.getType().getValue().toLowerCase();
                     String accountType = request.getTypeAccount().getValue().toLowerCase();
 
                     Mono<Boolean> validationMono;
