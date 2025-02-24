@@ -27,6 +27,27 @@ paths:
               schema:
                 $ref: '#/components/schemas/Product'
 
+  /transaction/transferAnotherAccount:
+    post:
+      tags:
+        - transaction
+      summary: Transferir a otras cuentas
+      operationId: transferAnotherAccount
+      requestBody:
+        description: API para crear una cuenta
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransferRequest"
+      responses:
+        '200':
+          description: Transferir a otras cuentas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransferResponse'
+
   /transaction/createdAccount:
     post:
       tags:
@@ -178,3 +199,20 @@ components:
         limitMovement:
           type: integer
           description: Limite de movimientos
+
+    TransferRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          description: Numero de cuenta a transferir
+        amount:
+          type: string
+          description: Monto a transferir
+
+    TransferResponse:
+      type: object
+      properties:
+        mensaje:
+          type: string
+          description: Mensaje de Respuesta de transaccion
