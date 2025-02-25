@@ -7,15 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-
 import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -52,7 +49,6 @@ public class AccountAdapterImplTest {
         when(clientAccount.post()).thenReturn(requestBodyUriSpec);
         when(requestBodyUriSpec.uri(anyString())).thenReturn(requestBodySpec);
         when(requestBodySpec.body(any())).thenReturn(requestHeadersSpec);
-        when(requestHeadersSpec.retrieve()).thenReturn(responseSpec);
     }
 
     @Test
@@ -73,8 +69,8 @@ public class AccountAdapterImplTest {
     @Test
     public void testGetAccountByIdHolder_Error() {
         when(responseSpec.bodyToFlux(Account.class))
-                .thenReturn(Flux
-                        .error(new WebClientResponseException(404, "Not Found", null, null, null)));
+                .thenReturn(Flux.error(new WebClientResponseException
+                        (404, "Not Found", null, null, null)));
 
         Mono<List<Account>> result = accountAdapter.getAccountByIdHolder("holder123");
 
@@ -94,7 +90,8 @@ public class AccountAdapterImplTest {
         Mono<Account> result = accountAdapter.createAccount(accountRequest);
 
         StepVerifier.create(result)
-                .expectNextMatches(acc -> acc.getAccountNumber().equals("123456789"))
+                .expectNextMatches(acc -> acc.getAccountNumber()
+                        .equals("123456789"))
                 .verifyComplete();
     }
 
@@ -102,7 +99,9 @@ public class AccountAdapterImplTest {
     public void testCreateAccount_Error() {
         AccountRequest accountRequest = new AccountRequest();
         accountRequest.setAccountNumber("123456789");
-        when(responseSpec.bodyToMono(Account.class)).thenReturn(Mono.error(new WebClientResponseException(400, "Bad Request", null, null, null)));
+        when(responseSpec.bodyToMono(Account.class))
+                .thenReturn(Mono.error(new WebClientResponseException
+                        (400, "Bad Request", null, null, null)));
 
         Mono<Account> result = accountAdapter.createAccount(accountRequest);
 
