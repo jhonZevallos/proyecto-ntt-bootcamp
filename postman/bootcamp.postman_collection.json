@@ -1,0 +1,602 @@
+{
+	"info": {
+		"_postman_id": "d326fc2d-f9a3-4ed4-9bd2-7d0bee588123",
+		"name": "bootcamp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15383284"
+	},
+	"item": [
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "created customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "200",
+								"type": "text"
+							},
+							{
+								"key": "X-Auth-Token",
+								"value": "100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"type\": \"empresarial\",\r\n        \"name\": \"Empresa1\",\r\n        \"direction\": \"Av. empresarial 123\",\r\n        \"phone\": \"941111017\",\r\n        \"email\": \"jempresa@gmail.com\",\r\n\t\t\"holders\":\r\n\t\t[\r\n\t\t\t{\r\n\t\t\t  \"name\": \"Miguel\",\r\n\t\t\t  \"lastname\": \"Fernandez\",\r\n\t\t\t  \"phone\": \"999987654\",\r\n\t\t\t  \"email\": \"miguelF@gmail.com\",\r\n\t\t\t  \"dni\": \"77465238\"\r\n\t\t\t}\r\n\t\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"created"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer list",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByid",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/customer/findById/672baead077bfeb5056b92a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"findById",
+								"672baead077bfeb5056b92a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update customer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"67a9874885983224dabee903\",\r\n    \"type\": \"empresarial\",\r\n    \"name\": \"Empresa1\",\r\n    \"lastname\": null,\r\n    \"direction\": \"Av. empresarial 123\",\r\n    \"phone\": \"941111017\",\r\n    \"email\": \"jempresa@gmail.com\",\r\n    \"dni\": null,\r\n    \"holders\": [\r\n        {\r\n            \"name\": \"Miguel\",\r\n            \"lastname\": \"Fernandez\",\r\n            \"phone\": \"999987654\",\r\n            \"email\": \"miguelF@gmail.com\",\r\n            \"dni\": \"77465238\"\r\n        },\r\n        {\r\n            \"name\": \"Fabian\",\r\n            \"lastname\": \"Garcia\",\r\n            \"phone\": \"922987654\",\r\n            \"email\": \"garciaF@gmail.com\",\r\n            \"dni\": \"76765238\"\r\n        }\r\n    ],\r\n    \"signatories\": [\r\n        {\r\n            \"name\": \"Miguel\",\r\n            \"lastname\": \"Fernandez\",\r\n            \"phone\": \"999987654\",\r\n            \"email\": \"miguelF@gmail.com\",\r\n            \"dni\": \"77465238\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/customer/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/account/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"account",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getbyHolder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/account/findByHolder/672bae02077bfeb5056b92a3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"account",
+								"findByHolder",
+								"672bae02077bfeb5056b92a3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "created",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "200",
+								"type": "text"
+							},
+							{
+								"key": "X-Auth-Token",
+								"value": "100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"holder\": [\r\n  \"672bae02077bfeb5056b92a3\"\r\n  ],\r\n  \"signer\": [\r\n    \"672bae02077bfeb5056b92a3\"\r\n  ],\r\n  \"typeAccount\": \"ahorro\",\r\n  \"balance\": 100.00,\r\n  \"opening date\": \"2025-02-08T18:27:35.420+00:00\",\r\n  \"maintenanceCommission\": 5.00,\r\n  \"limitMovement\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/account/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"account",
+								"created"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "credit",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/credit/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"credit",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCustomer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/credit/findByCustomerId/672baead077bfeb5056b92a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"credit",
+								"findByCustomerId",
+								"672baead077bfeb5056b92a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "created",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"672baead077bfeb5056b92a4\",\r\n  \"typeCredit\": \"personal\",\r\n  \"amount\": 5000.00,\r\n  \"approvalDate\": \"2025-02-10T02:07:09.561Z\",\r\n  \"interest\": 2000.00,\r\n  \"quota\": 500,\r\n  \"state\": \"activo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/credit/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"credit",
+								"created"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "creditcard",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/creditcard/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"creditcard",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "findByCustomerId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/creditcard/findByCustomerId/672baead077bfeb5056b92a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"creditcard",
+								"findByCustomerId",
+								"672baead077bfeb5056b92a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "created",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "100",
+								"type": "text"
+							},
+							{
+								"key": "X-Auth-Token",
+								"value": "100",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"customerId\": \"672baead077bfeb5056b92a4\",\r\n  \"typeCredit\": \"personal\",\r\n  \"cardNumber\": \"7746329085790112200\",\r\n  \"expirationDate\": \"2025-02-01\",\r\n  \"creditLimit\": 6000.00,\r\n  \"currentBalance\": 6000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/creditcard/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"creditcard",
+								"created"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movement",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/movement/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"movement",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8084/movement/findByProduct/67a7c6c36ec755234eddc788",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"movement",
+								"findByProduct",
+								"67a7c6c36ec755234eddc788"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "created",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"idProduct\": \"67a7c6c36ec755234eddc788\",\r\n\t\"type\": \"deposito\",\r\n\t\"amount\": 100.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8084/movement/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8084",
+							"path": [
+								"movement",
+								"created"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/payment/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"payment",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByIdProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/payment/findByProduct/67a97201f358cb1b84fc3351",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"payment",
+								"findByProduct",
+								"67a97201f358cb1b84fc3351"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "created",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"idProduct\": \"67a97201f358cb1b84fc3351\",\r\n\t\"amount\": 100.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8085/payment/created",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"payment",
+								"created"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "consultas",
+			"item": [
+				{
+					"name": "listar productos de cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/transaction/listProduct/672baead077bfeb5056b92a4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"transaction",
+								"listProduct",
+								"672baead077bfeb5056b92a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear cuenta-validaciones",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"holder\": \"672baead077bfeb5056b92a4\",\r\n  \"typeAccount\": \"ahorro\",\r\n  \"balance\": 1000.00,\r\n  \"maintenanceCommission\": 0,\r\n  \"limitMovement\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/transaction/createdAccount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"transaction",
+								"createdAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "config-server",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
