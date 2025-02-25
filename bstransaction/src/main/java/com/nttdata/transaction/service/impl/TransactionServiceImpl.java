@@ -113,6 +113,35 @@ public class TransactionServiceImpl implements TransactionService {
                 });
     }
 
+    @Override
+    public Mono<TransferResponse> transferBetweenAccounts(TransferRequest request) {
+        Mono<Account> originAccountMono = accountAdapter.getAccountByAccountNumber(request.getSourceAccount());
+        Mono<Account> destinationAccountMono = accountAdapter.getAccountByAccountNumber(request.getDestinationAccount());
+        return originAccountMono.zipWith(destinationAccountMono)
+                .flatMap(tuple ->{
+                    Account originAccount = tuple.getT1();
+                    Account destinationAccount = tuple.getT2();
+
+                    if (originAccount.getBalance().compareTo(request.getAmount()) < 0) {
+                        return Mono.error(new RuntimeException("Saldo insuficiente"));
+                    }
+
+                    originAccount.setBalance(originAccount.getBalance().subtract(request.getAmount()));
+                    destinationAccount.setBalance(destinationAccount.getBalance().add(request.getAmount()));
+
+                    Mono<Account> updatedOriginAccountMono = accountAdapter.updateAccount(originAccount);
+                    Mono<Account> updatedDestinationAccountMono = accountAdapter.updateAccount(destinationAccount);
+
+                    return Mono.zip(updatedOriginAccountMono, updatedDestinationAccountMono)
+                            .map(updatedTuple -> {
+                                TransferResponse response = new TransferResponse();
+                                response.setMensaje("Transferencia exitosa de: "+request.getAmount()
+                                        +" a cuenta: " + request.getDestinationAccount());
+                                return response;
+                            });
+                });
+    }
+
     private Mono<Boolean> validateAccountPersonal(String idCliente,String typeAccount) {
         return this.listProduct(idCliente)
                 .map(product -> {

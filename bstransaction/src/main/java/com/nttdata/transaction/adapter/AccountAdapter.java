@@ -10,5 +10,6 @@ public interface AccountAdapter {
 
     Mono<List<Account>> getAccountByIdHolder(String idHolder);
     Mono<Account> createAccount(AccountRequest request);
+    Mono<Account> updateAccount(Account request);
     Mono<Account> getAccountByAccountNumber(String accountNumber);
 }

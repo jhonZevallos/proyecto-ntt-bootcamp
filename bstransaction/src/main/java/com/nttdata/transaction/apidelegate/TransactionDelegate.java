@@ -1,9 +1,7 @@
 package com.nttdata.transaction.apidelegate;
 
 import com.nttdata.transaction.client.api.TransactionApiDelegate;
-import com.nttdata.transaction.client.model.AccountClientRequest;
-import com.nttdata.transaction.client.model.AccountResponse;
-import com.nttdata.transaction.client.model.Product;
+import com.nttdata.transaction.client.model.*;
 import com.nttdata.transaction.mapper.TransactionMapper;
 import com.nttdata.transaction.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +32,12 @@ public class TransactionDelegate implements TransactionApiDelegate {
                     AccountResponse accountResponse = mapper.getAccountResponseOfAccount(account);
                     return Mono.just(ResponseEntity.ok(accountResponse));
                 });
+    }
+
+    @Override
+    public Mono<ResponseEntity<TransferResponse>> transferAnotherAccount(Mono<TransferRequest> transferRequest, ServerWebExchange exchange) {
+        return transferRequest
+                .flatMap(request -> service.transferBetweenAccounts(request))
+                .map(ResponseEntity::ok);
     }
 }

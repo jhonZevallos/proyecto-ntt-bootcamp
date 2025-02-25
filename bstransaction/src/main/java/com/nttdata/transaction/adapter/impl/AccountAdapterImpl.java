@@ -35,6 +35,15 @@ public class AccountAdapterImpl implements AccountAdapter {
     }
 
     @Override
+    public Mono<Account> updateAccount(Account request) {
+        return clientAccount.post()
+                .uri("/account/update")
+                .body(BodyInserters.fromValue(request))
+                .retrieve()
+                .bodyToMono(Account.class);
+    }
+
+    @Override
     public Mono<Account> getAccountByAccountNumber(String accountNumber) {
         return clientAccount.get()
                 .uri("/account/findByAccountNumber/{accountNumber}",accountNumber)

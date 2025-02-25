@@ -210,7 +210,7 @@ components:
           type: string
           description: Numero de cuenta de destino a transferir
         amount:
-          type: string
+          type: number
           description: Monto a transferir
 
     TransferResponse:
