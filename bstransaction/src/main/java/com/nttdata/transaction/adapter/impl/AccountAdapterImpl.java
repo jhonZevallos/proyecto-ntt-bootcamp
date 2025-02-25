@@ -33,4 +33,12 @@ public class AccountAdapterImpl implements AccountAdapter {
                 .retrieve()
                 .bodyToMono(Account.class);
     }
+
+    @Override
+    public Mono<Account> getAccountByAccountNumber(String accountNumber) {
+        return clientAccount.get()
+                .uri("/account/findByAccountNumber/{accountNumber}",accountNumber)
+                .retrieve()
+                .bodyToMono(Account.class);
+    }
 }
