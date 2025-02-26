@@ -24,6 +24,7 @@ public class AccountAdapterImplTest {
 
     @Mock
     private WebClient.RequestBodyUriSpec requestBodyUriSpec;
+
     @Mock
     private WebClient.RequestBodySpec requestBodySpec;
 
@@ -104,6 +105,65 @@ public class AccountAdapterImplTest {
                         (400, "Bad Request", null, null, null)));
 
         Mono<Account> result = accountAdapter.createAccount(accountRequest);
+
+        StepVerifier.create(result)
+                .expectError(WebClientResponseException.class)
+                .verify();
+    }
+
+    @Test
+    public void testUpdateAccount_Success() {
+        Account account = new Account();
+        account.setAccountNumber("123456789");
+        Account accountRequest = new Account();
+        accountRequest.setAccountNumber("123456789");
+        when(responseSpec.bodyToMono(Account.class)).thenReturn(Mono.just(account));
+
+        Mono<Account> result = accountAdapter.updateAccount(accountRequest);
+
+        StepVerifier.create(result)
+                .expectNextMatches(acc -> acc.getAccountNumber()
+                        .equals("123456789"))
+                .verifyComplete();
+    }
+
+    @Test
+    public void testUpdateAccount_Error() {
+        AccountRequest accountRequest = new AccountRequest();
+        accountRequest.setAccountNumber("123456789");
+        when(responseSpec.bodyToMono(Account.class))
+                .thenReturn(Mono.error(new WebClientResponseException
+                        (400, "Bad Request", null, null, null)));
+
+        Mono<Account> result = accountAdapter.createAccount(accountRequest);
+
+        StepVerifier.create(result)
+                .expectError(WebClientResponseException.class)
+                .verify();
+    }
+
+    @Test
+    public void testGetAccountByAccountNumber_Success() {
+        Account account = new Account();
+        account.setAccountNumber("123456789");
+        when(responseSpec.bodyToMono(Account.class))
+                .thenReturn(Mono.just(account));
+
+        Mono<Account> result = accountAdapter.getAccountByAccountNumber("123456789");
+
+        StepVerifier.create(result)
+                .expectNextMatches(acc -> acc.getAccountNumber()
+                        .equals("123456789"))
+                .verifyComplete();
+    }
+
+    @Test
+    public void testGetAccountByAccountNumber_Error() {
+        when(responseSpec.bodyToMono(Account.class))
+                .thenReturn(Mono.error(new WebClientResponseException
+                        (404, "Not Found", null, null, null)));
+
+        Mono<Account> result = accountAdapter.getAccountByAccountNumber("123123213");
 
         StepVerifier.create(result)
                 .expectError(WebClientResponseException.class)
